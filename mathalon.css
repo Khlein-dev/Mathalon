@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Oswald:wght@200..700&display=swap');
+
+body {
+    background-image: url('photo/bg.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    font-family: Oswald;
+    text-align: justify;
+    color: #030310;
+    font-size: large;
+
+}
+
+.container {
+    background-image: url(photo/cream.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    border: 5px solid #0c0c2E;
+    border-radius: 15px;
+    width: 900px;
+    height: 550px;
+    padding: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    overflow: auto;
+}
+
+h1 {
+    font-family: Oswald;
+    letter-spacing: 5px;
+    font-weight: bolder;
+    font-size: 100px;
+    background: linear-gradient(to bottom, #11113f, #0d0d31, #0c0c2E, #030310);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-top: -30px;
+}
+
+
+input {
+    height: 40px;
+    width: 300px;
+    border-radius: 10px;
+    border: 2px solid #030310, ;
+}
+
+button {
+    height: 50px;
+    width: 290px;
+    border-radius: 10px;
+    background: linear-gradient(to bottom, #11113f, #0d0d31, #0c0c2E, #030310);
+    transition: 100ms;
+}
+
+a {
+    text-decoration: none;
+    font-family: Oswald;
+    color: antiquewhite;
+    letter-spacing: 2px;
+
+}
+
+.btn {
+    height: 50px;
+    width: 290px;
+    border-radius: 10px;
+    background: linear-gradient(to bottom, #11113f, #0d0d31, #0c0c2E, #030310);
+    font-family: Oswald;
+    color: antiquewhite;
+    letter-spacing: 2px;
+    transition: 100ms;
+}
+
+button:hover {
+    margin-top: -8px;
+    background: linear-gradient(to bottom, #d66e0d, #c62d1c, #a52213, #a31a0b);
+}
+
+.btn:hover {
+    margin-top: -8px;
+    background: linear-gradient(to bottom, #d66e0d, #c62d1c, #a52213, #a31a0b);
+
+}
+
+table {
+    width: 700px;
+ 
+
+}
+
+.blue {
+    background: linear-gradient(to bottom, #11113f, #0d0d31, #0c0c2E, #030310);
+    font-family: Oswald;
+    color: antiquewhite;
+    margin-left: 5px;
+
+}
+
+.error {
+    color: #510909;
+    font-size: larger;
+    font-family: Oswald;
+    margin-top: 20px;
+}
+
+
+
+
+.radio {
+    height: 50px;
+    width: 290px;
+    border-radius: 10px;
+    background: linear-gradient(to bottom, #11113f, #0d0d31, #0c0c2E, #030310);
+    font-family: Oswald;
+    color: antiquewhite;
+    letter-spacing: 2px;
+    transition: 100ms;
+    
+
+}
+
+.radio:hover {
+    margin-top: -8px;
+    background: linear-gradient(to bottom, #d66e0d, #c62d1c, #a52213, #a31a0b);
+
+}
