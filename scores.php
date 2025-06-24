@@ -37,14 +37,25 @@
                 }
             </style>
 
-            
-
             <?php
             include("database.php");
 
+            if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])) {
+                if (!empty($_POST['selected'])) {
+                    $selectedUsers = $_POST['selected'];
+                    foreach ($selectedUsers as $user) {
+                        $deleteQuery = "DELETE FROM exam WHERE user = '$user'";
+                        mysqli_query($con, $deleteQuery);
+                    }
+                    echo "<script>alert('Selected records deleted successfully!');</script>";
+                    echo "<script>window.location.href='scores.php';</script>";
+                } else {
+                    echo "<script>alert('No records selected for deletion!');</script>";
+                }
+            }
+
             if (!empty($_GET['btnsearch'])) {
                 $find = $_GET['find'];
-
                 $search = "SELECT * FROM exam WHERE user LIKE '%$find%'";
                 $result = mysqli_query($con, $search);
             } else {
@@ -54,33 +65,60 @@
 
             $count = mysqli_num_rows($result);
 
-            print "<table border=1 align=center>
-    <tr>
-        <td class='blue'>Exam date</td>
-        <td class='blue'>User</td>
-        <td class='blue'>Score</td>
-        <td class='blue'>Remark</td>
-    </tr>";
-
-            while ($rows = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-                $date = $rows['exam_date'];
-                $user = $rows['user'];
-                $score = $rows['score'];
-                $remark = $rows['remark'];
-                print "<tr><td>$date
-            <td><a href='view.php?user=$user'>$user</a>
-            <td>$score<td>$remark
-            <td><a href='update.php?exam_date=$date&user=$user&
-            score=$score&remark=$remark'><img src ='photo/edit (1).png' width=30px ></a>
-            <td><a href='delete.php?user=$user'><img src ='photo/delete (1).png' width=30px></a>";
-            }
-            print "</table>$count Records in display!";
             ?>
 
+            <form method="POST" action="scores.php">
+                <?php
+                print "<table border=1 align=center>
+                <tr>
+                    <td class='blue' ></td>
+                    <td class='blue'>Exam date</td>
+                    <td class='blue'>User</td>
+                    <td class='blue'>Score</td>
+                    <td class='blue'>Remark</td>
+                    <td class='blue'>edit</td>
+                    <td class='blue'>delete</td>
+                </tr>";
+
+                $allChecked = !empty($_GET['checkall']);
+                while ($rows = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+                    $date = $rows['exam_date'];
+                    $user = $rows['user'];
+                    $score = $rows['score'];
+                    $remark = $rows['remark'];
+                    $checked = $allChecked ? "checked" : "";
+                    print "<tr>
+                    <td width=5 align=center>
+                        <input type='checkbox' name='selected[]' value='$user' $checked style='width: 20px;'>
+                    </td>
+                    <td>$date</td>
+                    <td><a href='view.php?user=$user'>$user</a></td>
+                    <td>$score</td>
+                    <td>$remark</td>
+                    <td width=10 ><a href='update.php?exam_date=$date&user=$user&score=$score&remark=$remark'>
+                       <center> <img src='photo/edit (1).png' width=30px> </center>
+                    </a></td>
+                    <td width=10><a href='delete.php?user=$user'>
+                       <center> <img src='photo/delete (1).png' width=30px> </center>
+                    </a></td>
+                </tr>";
+                }
+                print "</table>$count Records in display!";
+                ?>
+                <br><br>
+                <input class="btn" type="submit" name="delete" value="Delete Selected" style="margin-left: 300px; transform: translateX(-50%);">
+            </form>
+            <br>
+            <button
+                style="right: 0; position: absolute; margin:10px; margin-top: 20px; width: 80px; color:antiquewhite">
+                <a href="login.php" style="color:antiquewhite">Back</a>
+            </button>
+            <br><br>
+            <a href="scores.php?checkall=yes">Check All</a>
+            <a href="scores.php">Clear All</a>
+    </div>
 
 
-
-            <button style="right: 0; position: absolute; margin:10px; margin-top: -20px; width: 80px; color:antiquewhite"><a href="login.php">Back</a></button>
 
 
 
