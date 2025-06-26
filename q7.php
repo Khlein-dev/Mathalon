@@ -16,16 +16,9 @@
         ob_start();
         session_start();
 
-        if (!isset($_SESSION['user'])) {
-            header("Location: login.php");
-            exit();
-        }
-
-        $user = $_SESSION['user'];
-        print "<h1>User :    " . htmlspecialchars($user) . "</h1>";
         ?>
 
-        <hr style="height: 5px; border: none; background: linear-gradient(to right,#121242, #0c0c2b); margin-top: -70px;">
+        <hr style="height: 5px; border: none; background: linear-gradient(to right,#121242, #0c0c2b); margin-top: 70px;">
 
         <form action="q7.php" method="post">
             <p style="font-size: 40px;">7. What is 3/5 of 120?</p>

@@ -16,16 +16,9 @@
         ob_start();
         session_start();
 
-        if (!isset($_SESSION['user'])) {
-            header("Location: login.php");
-            exit();
-        }
-
-        $user = $_SESSION['user'];
-        print "<h1>User :    " . htmlspecialchars($user) . "</h1>";
         ?>
 
-        <hr style="height: 5px; border: none; background: linear-gradient(to right,#121242, #0c0c2b); margin-top: -70px;">
+        <hr style="height: 5px; border: none; background: linear-gradient(to right,#121242, #0c0c2b); margin-top: 70px;">
 
         <form action="q4.php" method="post">
             <p style="font-size: 40px;">4. What is 20% of 50?</p>

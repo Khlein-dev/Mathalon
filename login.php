@@ -1,3 +1,41 @@
+<?php
+session_start();
+
+
+$con = mysqli_connect("localhost", "root", "", "student") or die("Error in connection");
+
+$error = "";
+
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['email']) && !empty($_POST['password'])) {
+    $e = $_POST['email'];
+    $p = $_POST['password'];
+
+    
+    $stmt = mysqli_prepare($con, "SELECT password FROM exam WHERE email = ?");
+    mysqli_stmt_bind_param($stmt, "s", $e);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_store_result($stmt);
+
+    if (mysqli_stmt_num_rows($stmt) == 0) {
+        $error = "Email doesn't exist";
+    } else {
+        mysqli_stmt_bind_result($stmt, $hash);
+        mysqli_stmt_fetch($stmt);
+
+        if (password_verify($p, $hash)) {
+            $_SESSION['email'] = $e;
+            header("Location: q1.php");
+            exit;
+        } else {
+            $error = "Password is invalid";
+        }
+    }
+
+    mysqli_stmt_close($stmt);
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,35 +47,7 @@
 </head>
 
 <body>
-
     <div class="container">
-
-        <?php
-        session_start();
-
-        $con = mysqli_connect("localhost", "root", "", "student")
-            or die("Error in connection");
-
-        $count = -1;
-        $user = '';
-
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $user = mysqli_real_escape_string($con, $_POST['user']);
-
-            $naulit = "SELECT user FROM exam WHERE user='$user'";
-            $result = mysqli_query($con, $naulit);
-            $count = mysqli_num_rows($result);
-
-            if ($count > 0) {
-               
-            } else {
-                $_SESSION['user'] = $user;
-                header("Location: q1.php");
-                exit();
-            }
-        }
-        ?>
-
         <center>
             <h1>MATHALON</h1>
 
@@ -50,28 +60,29 @@
                 pushing their critical thinking and problem-solving skills to the limit.
             </p>
 
-            <?php if ($count > 0): ?>
-                <div style="margin-top: 20px; color: red; font-size: 25px;">
-                    <?php echo htmlspecialchars($user) . " is already in records"; ?>
-                    <img src="photo/warning.png" width="32">
-                </div>
-            <?php endif; ?>
+             <?php
+            if (!empty($error)) {
+                echo "<p style='color:red;'>$error <img src='photo/warning.png' width=30px></p>";
+            }
+            ?>
 
             <form action="login.php" method="post">
                 <br>
-                <input type="text" name="user" placeholder="Enter Username" 
-                    value="<?php echo htmlspecialchars($user); ?>" required>
+                <input type="email" name="email" placeholder="Enter Email" required>
+                <br><br>
+                <input type="password" name="password" placeholder="Enter Password" required>
                 <br><br>
                 <input class="btn" type="submit" value="Login Now">
             </form>
 
+           
+
             <br>
             <button><a href="scores.php">View scores</a></button>
-
+            <br><br><br>
+            <a href="signup.php" style="color:#0c0c2b;">Sign up?</a>
         </center>
-
     </div>
-
 </body>
 
 </html>

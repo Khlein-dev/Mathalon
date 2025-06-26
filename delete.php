@@ -1,11 +1,12 @@
 <?php
-$user=$_GET['user'];
-include ("database.php");
-$del="DELETE from exam where (user='$user')";
+$email = $_GET['email'];
+include("database.php");
+
+$del = "DELETE FROM exam WHERE email='$email'";
 mysqli_query($con, $del);
-print "<script>
-alert ('Record successfully deleted');
-window.location('display.php');
-</script>
-<button> <a href = scores.php style=text-decoration:none;color:black;>Check records?</button></a>";
+
+echo "<script>
+    alert('Record successfully deleted');
+    window.location.href = 'scores.php';
+</script>";
 ?>
