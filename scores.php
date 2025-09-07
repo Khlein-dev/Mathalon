@@ -18,10 +18,79 @@
 
     <div class="container" style="padding: 15px">
         <center>
+
+            <!-- Yung table -->
+            <?php
+            include('database.php');
+            $sql = "SELECT max(score) AS max_score, sum(score) AS sum_score, count(score) AS count_score, avg(score) AS avg_score, min(score) AS min_score FROM exam";
+            $res = mysqli_query($con, $sql);
+            if ($row = mysqli_fetch_array($res, MYSQLI_ASSOC)) {
+                $sum = $row['sum_score'];
+                $count = $row['count_score'];
+                $avg = number_format($row['avg_score'], 2);
+                $smallest = $row['min_score'];
+                $high = $row['max_score'];
+
+                print "<table border='1' cellpadding='8' style='margin-bottom:20px;'>
+                <tr class='blue'>
+                    <th>Total Score</th>
+                    <th>Number of Records</th>
+                    <th>Average Score</th>
+                    <th>Lowest Score</th>
+                    <th>Highest Score</th>
+                </tr>
+                <tr>
+                    <td>$sum</td>
+                    <td>$count</td>
+                    <td>$avg</td>
+                    <td>$smallest</td>
+                    <td>$high</td>
+                </tr>
+            </table>";
+            }
+            ?>
+            <br><br>
+
+            <?php
+
+            // Yung Pass or Failed
+
+            print "<table border='1' cellpadding='8' style='margin-bottom:20px;'>
+                <tr class='blue'>
+                    <th>Remark</th>
+                    <th>Total</th>
+                </tr>";
+
+            include('database.php');
+            $q = "SELECT remark, COUNT(remark) AS total FROM exam GROUP BY remark";
+            $res = mysqli_query($con, $q);
+            while ($rec = mysqli_fetch_array($res, MYSQLI_ASSOC)) {
+                $rem = $rec['remark'];
+                $total = $rec['total'];
+                print "<tr><td>$rem</td><td>$total</td></tr>";
+            }
+            print "</table>";
+            ?>
+
+            <!-- Dito nagtatapos -->
+
+           
+
+        </center>
+
+
+        <br><br>
+
+
+
+
+
+        <center>
+
             <h1 style="font-size: 60px;">LIST OF STUDENTS RECORDS</h1>
             <hr style="height: 5px; border: none; background: linear-gradient(to right,#121242, #0c0c2b);">
 
-            
+
             <form action="scores.php" method="GET">
                 <input type="search" name="find" placeholder="Enter Username" required>
                 <input class="btn" style="width: 80px" type="submit" name="btnsearch" value="search">
@@ -31,7 +100,7 @@
             <?php
             include("database.php");
 
-            
+
             if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])) {
                 if (!empty($_POST['selected'])) {
                     $selectedUsers = $_POST['selected'];
@@ -46,7 +115,7 @@
                 }
             }
 
-            
+
             if (!empty($_GET['btnsearch'])) {
                 $find = $_GET['find'];
                 $search = "SELECT * FROM exam WHERE email LIKE '%$find%'";
@@ -58,7 +127,7 @@
             $count = mysqli_num_rows($result);
             ?>
 
-            
+
             <form method="POST" action="scores.php">
                 <table border="1" align="center">
                     <tr>
@@ -105,7 +174,7 @@
                 <input class="btn" type="submit" name="delete" value="Delete Selected" style="margin-left: 300px; transform: translateX(-50%);">
             </form>
 
-            
+
             <br>
             <button style="right: 0; position: absolute; margin:10px; margin-top: 20px; width: 80px; color:antiquewhite">
                 <a href="login.php" style="color:antiquewhite">Back</a>

@@ -65,7 +65,7 @@ session_start();
             include("database.php");
 
             $exam_date = date("y-m-d");
-            $remark = ($score <= 5) ? "Failed" : "Passed!";
+            $remark = ($score <= 5) ? "Failed" : "Passed";
 
             // Update the exam record where email matches
             $update = "UPDATE exam SET exam_date='$exam_date', score='$score', remark='$remark' WHERE email='$email'";
