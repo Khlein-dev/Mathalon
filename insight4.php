@@ -104,3 +104,5 @@ foreach ($dates as $date => $counts) {
     <script src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
 </body>
 </html>
+
+ <!-- Study for future references -->

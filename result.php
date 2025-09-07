@@ -76,3 +76,5 @@ session_start();
 </body>
 
 </html>
+
+ <!-- Study for future references -->

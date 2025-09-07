@@ -74,3 +74,5 @@ window.onload = function() {
 <div id="chartContainer" style="height: 370px; width: 100%;"></div>
 </body>
 </html>
+
+ <!-- Study for future references -->
